@@ -1,0 +1,32 @@
+{
+   	"name": "cgcookie/cgc-autoloader",
+   	"type": "wordpress-plugin",
+	"description": "Autoloader for CGC plugins",
+	"keywords": [ "course", "plugin","autoloader"],
+	"homepage": "http://cgcookie.com",
+	"authors": [
+	    {
+	      	"name": "Nick Haskins",
+	      	"email": "nick@cgcookie.com",
+	      	"homepage": "http://cgcookie.com"
+	    },
+	    {
+	      	"name": "Wes Burke",
+	      	"email": "wes@cgcookie.com",
+	      	"homepage": "http://cgcookie.com"
+	    },
+	   	{
+	      	"name": "Jonathan Williamson",
+	      	"email": "jonathan@cgcookie.com",
+	      	"homepage": "http://cgcookie.com"
+	    },
+	    {
+	      	"name": "Josh Polluck",
+	      	"email": "josh@joshpress.net",
+	      	"homepage": "http://cgcookie.com"
+	    }
+	],
+   	"require": {
+     	"composer/installers": "~1.0.6"
+   	}
+}
