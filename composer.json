@@ -1,6 +1,6 @@
 {
    	"name": "cgcookie/cgc-autoloader",
-   	"type": "wordpress-plugin",
+   	"type": "wordpress-muplugin",
 	"description": "Autoloader for CGC plugins",
 	"keywords": [ "course", "plugin","autoloader"],
 	"homepage": "http://cgcookie.com",
