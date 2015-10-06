@@ -127,7 +127,7 @@ class cgcAutoload {
 			$matches = array();
 			preg_match_all( '/[A-Z]/', $class, $matches, PREG_OFFSET_CAPTURE );
 			$matches = $matches[0];
-			$class   = strtolower( $class );
+
 
 			if ( 0 == count( $matches ) ) {
 				throw new Exception( 'cgc-autoloader Class not found' . $_class );
@@ -135,17 +135,23 @@ class cgcAutoload {
 				return;
 
 			} elseif ( 1 == count( $matches ) ) {
+				$class   = strtolower( $class );
 				$filename = 'class.' . $class . '.php';
 			} elseif( 2 == count( $matches )) {
-
+				$class   = strtolower( $class );
 				$filename = 'class.' . substr_replace( $class, '-', $matches[1][1] ) . substr( $class, $matches[1][1] ) . '.php';
 			}elseif( 3 === count( $matches ) ) {
+				if( 'cgcProcessAccountImages' == $_class ) {
+					$x = 1;
+				}
+
 				$parts[0] = substr( $class, $matches[0][1], 1 );
 				$parts[1] = substr( $class, $matches[1][1], 1  );
 				$parts[2] = substr( $class, $matches[2][1], 1 );
 
 				$parts[0] = str_replace( $parts[1], '', $class );
 				$parts[1] = str_replace( $parts[2], '', $parts[1] );
+
 				$filename = 'class.' . implode( '-', $parts ) . '.php';
 			}else{
 				$filename = false;
@@ -166,6 +172,7 @@ class cgcAutoload {
 					}else{
 						$full_path = trailingslashit( $path ) . 'includes/' . $filename;
 						if( in_array( $full_path, $this->inc_files[ $namespace ] ) ) {
+
 							include_once( $full_path );
 						}else{
 
