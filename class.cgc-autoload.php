@@ -5,7 +5,7 @@
  *
  * Autoloader for CGC
  *
- * @since 5.7
+ * @since 6.0.0
  */
 class cgcAutoload {
 
@@ -119,7 +119,7 @@ class cgcAutoload {
 			//$_class holds class name without anny futzing for later reference
 			$_class  = $class;
 			$class   = str_replace( array( 'cgc', 'Five' ), '', $class );
-			$namespace = $this->deterimine_namespace( $class );
+			$namespace = $this->determine_namespace( $class );
 			if( 'core' != $namespace ) {
 				$class = str_replace( $namespace, '', $class );
 			}
@@ -203,10 +203,10 @@ class cgcAutoload {
 	 *
 	 * @return string
 	 */
-	protected function deterimine_namespace( $class ) {
+	protected function determine_namespace( $class ) {
 		foreach( $this->namespaces as $namespace => $path ) {
-			if( $namespace == substr( $class, 0, strlen( $namespace ) ) ) {
-				return $namespace;
+			if( ucwords( $namespace ) == substr( $class, 0, strlen( $namespace ) ) ) {
+					return $namespace;
 			}
 
 		}
@@ -289,6 +289,8 @@ class cgcAutoload {
 		$this->special_classes = array(
 			'CGC_Core' => trailingslashit( CGC5_CORE_DIR ) . 'public/class-cgc-core.php',
 			'CGC_Core_Admin' => trailingslashit( CGC5_CORE_DIR ) . 'admin/class-cgc-core-admin.php',
+			'cgcVideoTracking' => trailingslashit( CGC_VIDEO_TRACKING_DIR ) . 'public/class.video-tracking.php'
+
 		);
 
 	}
