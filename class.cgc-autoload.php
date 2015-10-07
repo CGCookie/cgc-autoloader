@@ -141,16 +141,16 @@ class cgcAutoload {
 				$class   = strtolower( $class );
 				$filename = 'class.' . substr_replace( $class, '-', $matches[1][1] ) . substr( $class, $matches[1][1] ) . '.php';
 			}elseif( 3 === count( $matches ) ) {
-				if( 'cgcProcessAccountImages' == $_class ) {
-					$x = 1;
-				}
-
-				$parts[0] = substr( $class, $matches[0][1], 1 );
-				$parts[1] = substr( $class, $matches[1][1], 1  );
-				$parts[2] = substr( $class, $matches[2][1], 1 );
+				$parts[0] = substr( $class, $matches[0][1] );
+				$parts[1] = substr( $class, $matches[1][1] );
+				$parts[2] = substr( $class, $matches[2][1]);
 
 				$parts[0] = str_replace( $parts[1], '', $class );
 				$parts[1] = str_replace( $parts[2], '', $parts[1] );
+
+				array_walk( $parts, function(&$part) {
+					$part = strtolower( $part );
+				});
 
 				$filename = 'class.' . implode( '-', $parts ) . '.php';
 			}else{
@@ -159,18 +159,18 @@ class cgcAutoload {
 
 			if( $filename ){
 				$path = $this->namespaces[ $namespace ];
-
-				$full_path = trailingslashit( $path ) . 'public/includes/' . $filename;
+				$paths = array();
+				$paths[] = $full_path = trailingslashit( $path ) . 'public/includes/' . $filename;
 				if ( in_array( $full_path, $this->public_files[ $namespace ] ) ) {
 					include_once( $full_path );
 				} else {
 
-					$full_path =  trailingslashit( $path ) . 'admin/includes/' . $filename;
+					$paths[] = $full_path =  trailingslashit( $path ) . 'admin/includes/' . $filename;
 
 					if ( in_array( $full_path, $this->admin_files[ $namespace ] ) ) {
 						include_once( $full_path );
 					}else{
-						$full_path = trailingslashit( $path ) . 'includes/' . $filename;
+						$paths[] =  $full_path = trailingslashit( $path ) . 'includes/' . $filename;
 						if( in_array( $full_path, $this->inc_files[ $namespace ] ) ) {
 
 							include_once( $full_path );
@@ -288,7 +288,7 @@ class cgcAutoload {
 	private function set_special() {
 		$this->special_classes = array(
 			'CGC_Core' => trailingslashit( CGC5_CORE_DIR ) . 'public/class-cgc-core.php',
-			'CGC_Core_Admin' => trailingslashit( CGC5_CORE_DIR ) . 'admin/class-cgc-core-admin.php'
+			'CGC_Core_Admin' => trailingslashit( CGC5_CORE_DIR ) . 'admin/class-cgc-core-admin.php',
 		);
 
 	}
