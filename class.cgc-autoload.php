@@ -186,8 +186,6 @@ class cgcAutoload {
 
 				}
 
-				$this->maybe_make_route( $_class );
-
 			}
 
 		}
@@ -229,23 +227,6 @@ class cgcAutoload {
 	protected function is_special( $class ) {
 		if( array_key_exists( $class, $this->special_classes ) ) {
 			return true;
-		}
-
-	}
-
-	/**
-	 * Checks if class needs an API route and makes it.
-	 *
-	 * @since 6.0.0
-	 *
-	 * @access protected
-	 *
-	 * @param string $class Name of the class
-	 */
-	protected function maybe_make_route( $class ) {
-		$impliments = class_implements( $class );
-		if( ! empty( $impliments ) && in_array( 'cgcApiInterface', $impliments ) ) {
-			cgcRouteFactory::create( $class );
 		}
 
 	}
